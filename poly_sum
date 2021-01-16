@@ -1,0 +1,155 @@
+# include <stdio.h>
+# include <math.h>
+# include <stdlib.h>
+
+struct node
+{
+	int coef,ex,ey,ez;
+	struct node *link;    
+};
+typedef struct node nd;
+
+/*double power(int x, int y)  {
+	double sum=1;
+	int i;
+    
+	for(i=0;i<y;i++)
+    	     sum = sum * x;
+	return sum;
+}*/
+void addpoly(nd *hd, nd *hd1,nd *hd2)
+{
+   nd *t=0;
+   nd *thd=hd->link,*thd1=hd1->link,*p=0;
+   
+   int flag=0;
+   
+   
+for (;thd != hd;thd=thd->link,flag=0 )
+   {
+       for(p=thd1;p!= hd1;p=p->link) {//inner loop
+  if ( p->coef != -999 && 
+     (p->ex == thd->ex && p->ey == thd->ey && p->ez == thd->ez) )
+           {
+               t = (nd *) malloc(sizeof(nd));
+               t->coef = p->coef + thd->coef;
+               t->ex = p->ex;  t->ey = p->ey;  t->ez = p->ez;
+               p->coef = -999;
+               
+               t->link = hd2->link;
+               hd2->link = t;
+               
+               flag=1;
+               break; //control jumps out of inner for loop.
+           }  }      
+       
+       if (flag==1)    continue;
+       
+       t = (nd *) malloc(sizeof(nd));
+       t->coef = thd->coef;
+       t->ex = thd->ex;  t->ey = thd->ey;  t->ez = thd->ez;
+               
+       t->link = hd2->link;
+       hd2->link = t;           
+   }
+   
+  
+ for(;thd1 != hd1;thd1=thd1->link)
+   {
+       if (thd1->coef != -999)
+       {
+        t = (nd *) malloc(sizeof(nd));
+        t->coef = thd1->coef;
+        t->ex = thd1->ex;  t->ey = thd1->ey;  t->ez = thd1->ez;
+               
+        t->link = hd2->link;
+        hd2->link = t;           
+       }
+   }
+}
+void eval(nd *h)  {
+	int x,y,z;
+	double sum=0.0;
+	nd *t;
+    
+	printf("Enter x, y and z value ");
+	scanf("%d%d%d",&x,&y,&z);
+    
+	for(t=h->link;t!=h;t=t->link)
+ 	  sum = sum + (
+ 	      t->coef * pow(x,t->ex) * pow(y,t->ey) * pow(z,t->ez));
+    
+	printf("Evaluated output is %lf\n",sum);
+}
+
+void accept_poly(nd *h)
+{
+	nd *t;
+	int i,terms;
+    
+	printf("Enter number of terms: ");
+	scanf("%d",&terms);
+    
+	for(i=0;i<terms;i++)
+	{
+    	t = (nd *) malloc(sizeof(nd));
+    	printf("Enter coef expo-x expo-y expo-z\n");
+    	scanf("%d%d%d%d",&(t->coef),&(t->ex),&(t->ey),&(t->ez));   	 
+   	 
+        	t->link = h->link;
+        	h->link = t;	 
+	}
+}
+
+
+void display( nd * h)
+{
+	nd *t;
+	if (h->link == h)
+	{
+    	printf("Circular linked list empty\n");
+    	return ;
+	}
+	printf("\n\n");
+	printf("Terms of polynomial are\n");
+	for(t=h->link;t!=h;t=t->link)
+    		printf("%dx^%dy^%dz^%d+",t->coef,t->ex,t->ey,t->ez);
+	printf("\n\n");
+}
+
+int main()
+{
+	nd hd={.link=&hd}, hd1={.link=&hd1}, hd2={.link=&hd2};
+    
+	int ch;
+    
+	for(;;)
+	{
+    	printf("1. Represent and Evaluate\n");
+    	printf("2. Sum of two polynomials\n");
+    	printf("3. Exit\n");
+    	printf("Enter choice: "); scanf("%d",&ch);
+    	switch(ch)
+    	{
+        	case 1:
+           	accept_poly(&hd);
+           	display(&hd);
+           	eval(&hd);
+           	hd.link=&hd;
+            	break;
+        	case 2:
+            	accept_poly(&hd);
+           	// display(&hd);
+            	accept_poly(&hd1);
+           	// display(&hd1);
+          	 
+            	addpoly(&hd,&hd1,&hd2);
+          	 
+            	printf("Resultant polynomial is\n");
+            	display(&hd2);
+            	break;
+        	case 3:
+            	return 0;
+    	}
+	}    
+}
