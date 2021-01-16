@@ -1,0 +1,111 @@
+Lab program 8
+Design, Develop and Implement a menu driven Program in C
+for the following operations on Doubly Linked List (DLL) of
+Employee Data with the fields: SSN, Name, Dept, Designation,
+Sal, PhNo.
+a. Create a DLL of N Employees Data by using end insertion
+b. Display the status of DLL and count the number of nodes in it
+c. Perform Insertion and Deletion at End of DLL
+d. Perform Insertion and Deletion at Front of DLL
+e. Demonstrate how this DLL can be used as Double Ended Queue
+f. Exit
+struct node {
+ char ssn[20],name[20],dept[20],desig[20],ph[20];
+ float sal;
+ struct node *llink,*rlink;
+};
+typedef struct node nd;
+nd * insert_front( nd * );
+nd * insert_rear( nd * );
+nd * delete_front( nd * );
+nd * delete_rear( nd * );
+void display( nd * );
+nd * create( nd * );
+1
+int main( ) {
+ nd *first=0; int ch;
+ for(;;) {
+ printf("1. Creation of N employee using end insertion\n");
+ printf("2. Display and count\n");
+ printf("3. Insert front\n4. Delete front\n5. Insert rear\n");
+ printf("6. Delete rear\n7. Exit\nChoice: "); scanf("%d",&ch);
+ switch(ch) {
+ case 1: first=create(first); break;
+ case 2: display(first); break;
+ case 3: first=insert_front(first); break;
+ case 4: first=delete_front(first); break;
+case 5: first=insert_rear(first); break;
+case 6: first=delete_rear(first); break;
+ case 7: return 0;
+ }
+ }
+}
+2
+nd * create( nd * f ) {
+ nd *t,*l; int i,n;
+ if (f != NULL)
+ for(l=f; l->rlink !=0 ; l=l->rlink);
+ printf("Enter number of employees\n"); scanf("%d",&n);
+ for(i=0;i<n;i++)
+ {
+ t = (nd *) malloc(sizeof(nd));
+ printf("Enter SSN, Name, Dept, Desig, Sal & Phno\n");
+ scanf("%s%s%s%s%f%s", t->ssn, t->name, t->dept,
+t->desig, &(t->sal), t->phno);
+ t->rlink=t->llink=0;
+ if ( f == NULL)
+ { f=l=t; continue;}
+ l->rlink = t;
+ t->llink=l; l=t;
+ }
+ return f;
+}
+void display( nd * f) {
+ int cnt=0;
+ if ( f == NULL) {
+ printf("DLL is empty\n"); return; }
+3
+ printf("Contents of DLL are\n");
+ for( ; f !=0 ; f=f->rlink, cnt++)
+ printf("%s %s %s %s %f %s\n", f->ssn, f->name, f->dept,
+f->desig, f->sal, f->phno);
+ printf("Number of nodes in DLL are %d\n",cnt);
+}
+nd * insert_front( nd * f ) {
+ // f holds the content of first which is in main function
+ t = (nd *) malloc(sizeof(nd));
+ printf("Enter SSN, Name, Dept, Desig, Sal & Phno\n");
+ scanf("%s%s%s%s%f%s", t->ssn, t->name, t->dept,
+t->desig, &(t->sal), t->phno);
+ t->rlink=t->llink=0;
+ if ( f != 0)
+ { t->rlink=f;
+ f->llink=t;
+ }
+ return t;
+ }
+nd * delete_front( nd * f) {
+ if (f == NULL) {
+ printf("DLL is empty\n"); return f; }
+ printf("Information to be deleted is\n");
+ printf("%s%s%s%s%f%s", f->ssn, f->name, f->dept,
+f->desig, f->sal, f->phno);
+ if (f->rlink==NULL)
+4
+ { free(f); return 0;}
+ f=f->rlink; free(f->llink); f->llink=0;
+ return f;
+}
+nd * insert_rear( nd * f) {
+ nd * l;
+ t = (nd *) malloc(sizeof(nd));
+ printf("Enter SSN, Name, Dept, Desig, Sal & Phno\n");
+ scanf("%s%s%s%s%f%s", t->ssn, t->name, t->dept,
+t->desig, &(t->sal), t->phno);
+ t->rlink=t->llink=0;
+ if ( f == 0)
+ return t;
+ for(l=f; l->rlink != null ; l = l->rlink);
+ l->rlink = t; t->llink = l;
+ return f;
+}
