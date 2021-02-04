@@ -1,0 +1,48 @@
+int  main( ) {
+     char str1[30], str2[30], str3[30];
+     gets(str1);   gets(str2);
+     strcpy(str3, str1);
+     strcpy(str1, str2);
+     strcpy(str2,str3);
+     puts(str1);  puts(str2);  }
+ //USING STRUCTURE    
+     
+     #include <stdio.h>
+struct  str
+{
+    char a[30];
+    int b;
+};
+typedef struct str ST;
+
+
+int  main() {
+     ST  p; // p is capable of storing a string
+     ST q, temp;
+p.b=10;
+q.b=60;
+     gets(p.a);  gets(q.a);
+  
+     temp=p;     
+     p=q;
+     q=temp;
+    
+    puts(p.a);   puts(q.a);  
+    printf("%d",p.b);
+}
+//USING DMA
+int main( ) {
+        char *str1, *str2, *str3;
+        str1 = (char *) malloc(30);
+        gets(str1);   
+        str1 =  (char *)  realloc(str1, strlen(str1)+1 );
+       
+    str2 = (char *) malloc(30);
+        gets(str2);   
+        str2 =  (char *)  realloc(str2, strlen(str2)+1 );
+
+        str3 = (char *) malloc(30);
+        strcpy(str3, str1);  strcpy(str1, str2);   strcpy(str2, str3);
+  
+       puts(str1);   puts(str2);
+}
