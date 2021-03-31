@@ -1,0 +1,43 @@
+
+//PGM TO ACCEPT ‘N’ STUDENT INFORMATION AND TO PRINT
+//IT USING MODULES AND TO PRINT THE STUDENT NAME
+//WITH HIGHEST MARKS.
+#include <stdio.h>
+#include <stdlib.h>
+struct student {
+char nm[20],usn[15];
+int marks;
+};
+typedef struct student st;
+void display(int , st*);
+void highest_marks(int, st*);
+st * accept(int *);
+int main( ) {
+st *arr=0;
+int n;
+arr=accept(&n);
+highest_marks( n, arr );
+display(n,arr);
+}
+st * accept(int *p ) {
+st *ar=0; int i;
+scanf("%d",p);
+ar= (st*) malloc(sizeof(st)*(*p));
+for(i=0;i< *p;i++)
+scanf("%s%s%d",ar[i].nm, ar[i].usn,&(ar[i].marks) );
+return ar;
+}
+void display(int n,st *arr) {
+int i;
+printf("Information of students\n");
+for(i=0;i<n;i++)
+printf("%s %s %d\n", arr[i].nm, arr[i].usn, arr[i].marks);
+
+}
+void highest_marks(int n, st *arr ) {
+int i, index,hm=arr[0].marks;
+for(i=1; i<n; i++)
+if ( arr[i].marks > hm)
+{ hm=arr[i].marks; index=i; }
+printf("Name of the student with h m %s\n", arr[index].nm);
+}  
