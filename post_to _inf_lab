@@ -1,0 +1,39 @@
+ #include <stdio.h>
+# include <string.h> // for strlen function
+# include <math.h> // for pow function
+# include <ctype.h> // for isdigit function
+//int isdigit(int c);
+double compute(char symbol,double op1, double op2)
+{
+switch(symbol)
+{
+case '+': return op1 + op2;
+case '-': return op1 - op2;
+case '*': return op1 * op2;
+case '/': return op1 / op2;
+case '$':
+case '^': return pow(op1,op2);
+}
+}
+int main()
+{
+char postfix[20]={"56+437-*/"},symbol;
+double st[20],op1,op2;
+int top=-1,i;
+printf("Enter a valid postfix expression\n");
+// scanf("%s",postfix);
+52for(i=0;postfix[i] != '\0'; i++)
+{
+// int isdigit(int c);
+// return value is nonzero or zero
+if ( isdigit(postfix[i]) )
+st[++top] = postfix[i] - '0';
+else
+{
+op2 = st[top--];
+op1 = st[top--];
+st[++top] = compute(postfix[i],op1,op2);
+}
+}
+printf("Result is %lf\n",st[top--]);
+}
