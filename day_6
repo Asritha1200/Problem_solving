@@ -1,0 +1,102 @@
+1.1. Write a program to reverse individual words in a given line of string 
+
+Input :  india is great 
+output : aidni si taerg  
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+int main()
+{
+    char *s;char *word;
+    s=(char *)malloc(sizeof(char)*30);
+    gets(s);int n=strlen(s);
+    word=(char *)malloc(sizeof(char)*30);
+    s[n]=' ';int j=0;int wl;
+    for(int i=0;i<=n;i++)
+    {
+       if(s[i]==' ')
+       {
+           word[j]='\0';
+           wl=strlen(word);
+           for(int k=wl-1;k>=0;k--)
+           {
+               printf("%c",word[k]);
+               word[k]='0';
+           }
+           printf("%c",' ');
+           j=0;
+           wl=0;
+          
+           
+       }     
+           
+           
+       
+       else
+       {
+          word[j++]=s[i]; 
+       }
+       
+    }
+}
+
+
+
+2.	Write a program to check if two given String is the anagram of 
+	each other( string is saved in a structure)
+
+struct str
+{
+    char cont[100];
+};
+
+An anagram is a word or phrase formed by rearranging the letters of a different word or phrase, 
+typically using all the original letters exactly once. 
+Example
+Race =care
+Eleven plus two = Twelve plus one
+
+
+#include <stdio.h>
+#include <string.h>
+struct str{
+    char cont[100];
+};typedef struct str st;
+
+int main()
+{
+    
+  st a;
+  st b;
+  gets(a.cont);
+  gets(b.cont);
+  int m=strlen(a.cont);
+  int n=strlen(b.cont);
+  if(m==n)
+  {
+      for(int i=0;i<m;i++)
+      {
+          for(int j=0;j<n;j++)
+          {
+              if(b.cont[j]!='1'&&b.cont[j]==a.cont[i])
+              {
+                  b.cont[j]='1';
+              }
+          }
+          
+      }int k;
+      for(k=0;k<n;k++)
+      {
+          if(b.cont[k]!='1')
+          break;
+      }
+      if(k==n)
+      printf("it is anagram");
+      else
+      printf("not an anagram");
+  }
+  else
+      printf("not an anagram");
+}
