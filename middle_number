@@ -1,0 +1,32 @@
+#include <stdio.h>
+
+void main()
+{
+    int arr[10];int cnt=0;int n;int last;
+    printf("enter the nun");
+scanf("%d",&n);
+   for(int i=0;i<n;i++,cnt++)
+   {
+       scanf("%d",&arr[i]);
+       
+   }
+   int start=0;
+   last=cnt-1;
+   while(start<=last)
+   {
+       start++;
+       last--;
+   }
+   if (start-1==last+1)
+   {
+       printf("%d",arr[start-1]);
+       
+   }
+   else{
+
+   printf("%d",arr[start-1]);
+   printf("%d",arr[last+1]);
+   }
+   
+   return;
+}
