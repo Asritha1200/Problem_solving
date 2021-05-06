@@ -1,0 +1,581 @@
+1. Program to save names in a SLL, names in the list must be saved in ascending order based on ASCII value 
+struct node 
+{ 
+	char name[20];
+	struct node *link;
+}
+******************
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+struct node{
+    char nm[20];
+    struct node *link;
+};typedef struct node nd;
+
+nd* accept(nd *f)
+{
+    nd *t;nd *prev;
+    nd *next;
+    t=(nd *)malloc(sizeof(nd));
+    printf("enetr the name");
+    scanf("%s",t->nm);
+    t->link=0;
+    if(f==0)
+    {
+        return t;
+    }
+    if(f->link==0)
+    {
+        if(strcmp(f->nm,t->nm)>0)
+        {
+            t->link=f;
+            return t;
+        }
+        else
+        {
+            (f->link)=t;
+            return f;
+        }
+    }
+    for(prev=f,next=f->link;next!=0;prev=next,next=next->link)
+    {
+    
+    if(strcmp(prev->nm,t->nm)<0&&strcmp(next->nm,t->nm)>0)
+    {
+        
+        prev->link=t;
+        t->link=next;
+        return f;
+    }
+    if(strcmp(prev->nm,t->nm)>0)
+    {
+        t->link=prev;
+        return t;
+    }
+    
+    }
+    if(next==0)
+    {
+    prev->link=t;
+    return f;
+    }
+    
+}
+void display(nd *f)
+{
+    if(f==0)
+    {
+        printf("empty sll");
+        
+    }
+    else
+    {
+        for(;f!=0;f=f->link)
+        {
+            printf("%s ",f->nm);
+            
+        }
+        
+        
+    }
+        
+    
+}
+
+int main()
+{
+    
+    
+    nd *prev;
+    nd *next;
+    nd *f=0;
+    int ch;
+    for(;;)
+    {
+        printf("enter the choice");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+              f=accept(f);
+              break;
+            case 2:
+             display(f);
+             break;
+            case 3:
+                return 0;
+                            
+        
+        }
+        
+    }
+ 
+    
+   
+}
+
+2. Write separate functions to delete a node from SLL based on i) position ii) based on name use the previously defined structure.
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+struct node{
+    char nm[20];
+    struct node *link;
+};typedef struct node nd;
+
+nd * accept(nd *f)
+{
+    
+    nd *t;
+    
+    t=(nd *)malloc(sizeof(nd));
+    printf("enetr the name");
+    scanf("%s",t->nm);
+    t->link=0;
+    if(f==0)
+    {
+        return t;
+    }
+    nd *last;
+    
+    for(last=f;last->link!=0;last=last->link);
+    last->link=t;
+    return f;
+    
+}
+nd * del_at_pos(nd *f)
+{
+    int pos;nd *prev;
+    nd *next;nd *t;nd *p;
+    
+    if(f==0)
+    {
+        printf("empty sll");
+        return f;
+    }
+    printf("enter the pos to be del at");
+    scanf("%d",&pos);
+    int count=0;
+    for(p=f;p!=0;p=p->link,count++);
+    if(pos>count)
+    {
+        printf("pos entered is outta range");
+        return f;
+        
+    }
+    
+    for(prev=0,next=f;pos>1;pos--,prev=next,next=next->link);
+    
+    if(prev==0)
+    {
+        if(next->link==0)
+        {
+            free(next);
+            return 0;
+        }
+        else
+        {
+            t=f->link;
+            free(f);
+            return t;
+        }
+    }
+       if(next->link==0)
+       {
+           prev->link=0;
+           free(next);
+           return f;
+       }
+    
+        prev->link=next->link;
+        free(next);
+        return f;
+}
+nd * del_by_nm(nd *f,char *str)
+
+{
+    nd *prev;
+    nd *next;
+    nd *t;
+    
+    if(f==0)
+    {
+        printf("empty sll");
+        return f;
+        
+    }
+    if(strcmp(f->nm,str)==0)
+    {
+       
+        free(f);
+         return 0;
+    }
+    for(prev=0,next=f;next!=0;prev=next,next=next->link)
+    {
+        if(prev==0 && strcmp(next->nm,str)==0)
+        {
+            if(next->link==0)
+            {
+                free(next);
+                return 0;
+                
+            }
+            t=next->link;
+            free(next);
+            return t;
+            
+        }
+        if(strcmp(next->nm,str)==0)
+        {
+            if(next->link==0)
+            {
+                prev->link=0;
+                free(next);
+                return f;
+            }
+            prev->link=next->link;
+            free(next);
+            return f;
+            
+        }
+        
+    }
+    printf("the nm dint match so cldnt del");
+    
+}
+void display(nd *f)
+{
+    if(f==0)
+    {
+        printf("empty sll");
+        
+    }
+    else
+    {
+        for(;f!=0;f=f->link)
+        {
+            printf("%s ",f->nm);
+            
+        }
+        
+        
+    }
+        
+    
+}
+
+int main()
+{
+    
+    
+   char str[20];
+   
+    
+    nd *f=0;
+    int ch;
+    for(;;)
+    {
+        printf("enter the choice");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+              f=accept(f);
+              break;
+            case 2:
+             display(f);
+             break;
+            case 3:
+                del_at_pos(f);
+                break;
+            case 4:
+                printf("enetr the nm to be del");
+                scanf("%s",str);
+               del_by_nm(f,str);
+               break;
+            case 5:
+                return 0;
+                
+                            
+        
+        }
+        
+    }
+}
+
+3. write a program to merge two SLL and the result must be sorted 
+ 
+
+**************************************
+#include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+struct node{
+    int id;
+    struct node *link;
+};typedef struct node nd;
+
+nd * accept(nd *f)
+{
+    
+    nd *t;
+    
+    t=(nd *)malloc(sizeof(nd));
+    printf("enetr the id");
+    scanf("%d",&(t->id));
+    t->link=0;
+    if(f==0)
+    {
+        return t;
+    }
+    nd *last;
+    
+    for(last=f;last->link!=0;last=last->link);
+    last->link=t;
+    return f;
+    
+}
+nd * merge(nd *f,nd *f1)
+{
+    nd * last;
+    
+    if (f==0)
+    {
+        return f1;
+    }
+    if(f1==0)
+    {
+        return f;
+    }
+    for(last=f;last->link!=0;last=last->link);
+    last->link=f1;
+    return f;
+    
+    
+    
+}
+nd *sort(nd *f)
+{
+    nd *p;nd *temp;
+    nd *np;
+    for(p=f;p!=0;p=p->link)
+    {
+        for(np=p->link;np!=0;np=np->link)
+        {
+            if(np->id<p->id)
+            {
+                temp=(nd *)malloc(sizeof(nd));
+                temp->id=p->id;
+                p->id=np->id;
+                np->id=temp->id;
+                free(temp);
+                
+            }
+        }
+    }
+    
+}
+
+void display(nd *f)
+{
+    if(f==0)
+    {
+        printf("empty sll");
+        
+    }
+    else
+    {
+        for(;f!=0;f=f->link)
+        {
+            printf("%d ",f->id);
+            
+        }
+        
+        
+    }
+        
+    
+}
+
+
+
+int main()
+{
+    
+    
+   int n;
+   
+    
+    nd *f=0;
+    int ch;
+    nd *f1;
+    for(;;)
+    {
+        printf("enter the choice");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+            printf("first ll");
+              f=accept(f);
+              break;
+            case 2:
+            printf("second ll");
+             f1=accept(f1);
+             break;
+            case 3:
+               f= merge(f,f1);
+               display(f);
+                break;
+            case 4:
+                printf("sorted ll");
+                sort(f);
+                display(f);
+            case 5:
+                return 0;
+                
+                            
+        
+        }
+        
+    }
+}
+
+4. write a program in SLL to remove duplicate nodes 
+Input: 5, 8 , 7 , 1, 7, 8
+Output:
+Unique elem in SLL: 5, 8 , 7 , 1
+Elem which are repeated in SLL: 8,7 
+struct node 
+{ 
+	int empid;
+	struct node *link; 
+}
+#include <stdio.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+
+struct node{
+    int id;
+    struct node *link;
+};typedef struct node nd;
+
+nd * accept(nd *f)
+{
+    
+    nd *t;
+    
+    t=(nd *)malloc(sizeof(nd));
+    printf("enetr the id");
+    scanf("%d",&(t->id));
+    t->link=0;
+    if(f==0)
+    {
+        return t;
+    }
+    nd *last;
+    
+    for(last=f;last->link!=0;last=last->link);
+    last->link=t;
+    return f;
+    
+}
+
+nd *dup(nd *f)
+{
+    nd *n;nd *p;
+    if(f==0)
+    {
+        printf("no dup");
+        return f;
+    }
+    if(f->link==0)
+    {
+        printf("no dup");
+        return f;
+    }
+    
+    for(;f->link!=0;f=f->link)
+    {
+        for(p=f,n=f->link;n!=0;p=n,n=n->link)
+        {
+            if(n->id==f->id)
+            {
+                p->link=n->link;
+                free(n);
+                
+            }
+        }
+    }
+    return f;
+    
+    
+}
+
+void display(nd *f)
+{
+    if(f==0)
+    {
+        printf("empty sll");
+        
+    }
+    else
+    {
+        for(;f!=0;f=f->link)
+        {
+            printf("%d ",f->id);
+            
+        }
+        
+        
+    }
+        
+    
+}
+
+int main()
+{
+    
+    
+   int n;
+   
+    
+    nd *f=0;
+    int ch;
+    
+    for(;;)
+    {
+        printf("enter the choice");
+        scanf("%d",&ch);
+        switch(ch)
+        {
+            case 1:
+            
+              f=accept(f);
+              break;
+            case 2:
+            display(f);
+            break;
+            case 3:
+            f=dup(f);
+            break;
+            case 4:
+            return 0;
+            
+            
+                            
+        
+        }
+        
+    }
+}
