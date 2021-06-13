@@ -1,0 +1,141 @@
+#include <iostream>
+using namespace std;
+struct node
+{
+    int info;
+    node *link;
+    node()
+    {
+        cout<<"enter the info";
+        cin>>info;
+    }
+     
+};
+typedef struct node nd;
+class list{
+    private:node *f;
+    static int cnt;
+    public:
+    list()
+    {
+        f=0;
+    }
+    void insert_front();
+    void insert_end();
+    void delete_front();
+    void delete_end();
+    void display();
+};
+int list::cnt=0;
+
+void list::insert_front()
+{
+    nd *t=new node();
+    t->link=0;
+    cnt++;
+    if(f==0)
+    {
+        f=t;
+    }
+    else
+    {
+    t->link=f;
+    f=t;
+    }
+    
+}
+void list::insert_end()
+{
+    nd *last;
+    nd *t=new node();
+    t->link=0;
+    cnt++;
+    if(f==0)
+    {
+        f=t;
+    }
+    else
+   {
+   
+    for(last=f;last->link!=0;last=last->link);
+    last->link=t;
+   }
+   
+}
+
+void list::delete_front()
+{
+    nd *t;
+    if(f==0)
+    {
+        cout<<"empty ll";
+        return;
+    }
+    cout<<"ele deleted is"<<f->info<<endl;
+    cnt--;
+    if(f->link==0)
+    {
+        delete f;
+        f=0;
+    }
+    
+    else 
+    
+    {
+        t=f;
+        f=t->link;
+        
+        delete t;
+        
+    }
+}
+
+void list::delete_end()
+{
+    
+    nd *t;nd* last;nd *prev;
+    if(f==0)
+    {
+        cout<<"empty ll";
+        return;
+    }
+   
+    cnt--;
+    if(f->link==0)
+    {
+         cout<<"ele deleted is"<<f->info<<endl;
+        delete f;
+        f=0;
+    }
+    else 
+    {
+        for(last=f,prev=0;last->link!=0;prev=last,last=last->link);
+         cout<<"ele deleted is"<<last->info<<endl;
+        prev->link=0;
+        delete last;
+    }
+    
+}
+void list::display()
+{
+    nd *t;
+    for(t=f;t!=0;t=t->link)
+    {
+        cout<<t->info<<endl;
+        
+    }
+}
+int main()
+{
+    list p;
+    p.insert_end();
+    p.insert_end();
+    p.insert_front();
+    p.display();
+    p.delete_end();
+     p.delete_end();
+      p.delete_front();
+    
+
+    return 0;
+}
