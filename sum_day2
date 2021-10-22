@@ -1,0 +1,34 @@
+#include <stdio.h>
+ int main()
+ {
+ 	printf("enter the number of elememts of array");
+ 	int n;
+ 	scanf("%d",&n);
+ 	int a[n];
+ 	int k;
+ 	printf("enter the sum");
+ 	scanf("%d",&k);
+ 	printf("enetr the elements of the array");
+ 	for(int i=0;i<n;i++)
+ 	{
+		scanf("%d",&a[i]);
+	}
+ 	for(int i=0;i<n-1;i++)
+ 	{ 
+ 		for(int j=i+1;j<n;j++)
+ 		{
+ 			if((a[i]+a[j])==k)
+ 			{
+ 			
+ 				printf("sum = %d\n",k);
+ 				printf("Indices are found at %d and %d",i+1,j+1);
+ 				return 0;
+ 			}
+ 		}
+ 		
+ 	}
+ 		printf("no indices found");
+ 		return 0;
+ }
+ 		
+ 		
