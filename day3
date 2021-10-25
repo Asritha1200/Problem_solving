@@ -1,0 +1,73 @@
+#include <stdio.h>
+ int main()
+ {
+ 	int n;
+ 	printf("enetr the number of ele of array");
+ 	scanf("%d",&n);
+ 	int arr[n];
+ 	printf("enter the elements of the array");
+ 	for(int i=0;i<n;i++)
+ 	{
+ 		scanf("%d",&arr[i]);
+ 	}
+ 	int sum=0;
+ 	printf("enter the sum");
+ 	scanf("%d",&sum);
+ 	
+ 	int ssum=0;
+ 	for(int i=0;i<n;i++,ssum=0)
+ 	{
+ 		for(int j=i;j<n;j++)
+ 		{
+ 			if(ssum<sum)
+ 			{
+ 				ssum=ssum+arr[j];
+ 			}
+ 			else if(ssum==sum)
+ 			{
+ 			 int l=i;
+ 			 int h=j;
+ 			 int len=j-i;
+ 			 int sarr[len];
+ 			 for(int k=0;k<len;k++)
+ 			 {
+ 			 	sarr[k]=arr[l];
+ 			 	l++;
+ 			 }
+ 			 printf("the subarray is");
+ 			 for(int z=0;z<len;z++)
+ 			 {
+ 			 	printf("%d ",sarr[z]);
+ 			 }
+ 			 printf("\n indices range from %d to %d",i,j-1);
+ 			 return 0;
+ 			 
+ 				
+ 			}
+ 			else 
+ 			{
+ 				break;
+ 			}
+ 		}
+ 	}
+ 			
+ printf("not poss to obtain the sum");			
+return 0;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
