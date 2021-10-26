@@ -1,0 +1,31 @@
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+	char str[50];
+	printf("enter the string");
+	gets(str);
+	int visited[26];
+	int max=0;
+	char f;
+	for(int i=0;i<strlen(str)-1;i++)
+	{
+		for(int j=i+1;j<strlen(str);j++)
+		{
+			if(str[i]==str[j])
+			{
+				count++;
+			}
+			
+		}
+		if(count>max)
+		{
+			max=count;
+			f=str[i];
+		}
+		
+	}
+	printf("the most frequent char is %c with count %d",f,count);
+	return 0;
+}
