@@ -1,0 +1,34 @@
+#include <stdio.h>
+#include <string.h>
+#include <ctype.h>
+int main()
+{
+	char str[50];
+	printf("enter the string");
+	int l=0;
+	gets(str);
+	for(int i=0;i<strlen(str);i++)
+	{	
+		if(str[i]==' '&&isupper(str[i+1]))
+		{
+				l++;
+		}	
+	}
+	char nstr[l+1];
+	nstr[0]=str[0];int j=1;
+		
+	for(int i=1;i<strlen(str);i++)
+	{
+		if(str[i]==' '&&isupper(str[i+1]))
+		{
+			nstr[j++]=str[i+1];
+		}
+	}
+	
+	for(int i=0;i<strlen(str);i++)
+	{
+				printf("%c",nstr[i]);
+	}
+	return 0;
+	}
+	
