@@ -6,7 +6,7 @@ struct book{
 	float book_price;
 };typedef struct book b;
 
-void insert(int *top,b stack[])
+void insert(int *top,b *stack)
 {
 	if(*(top)==4)
 	{
@@ -27,7 +27,7 @@ void insert(int *top,b stack[])
 	scanf("%f",&(stack[*(top)].book_price));
 }
 
-void remove(int *top,b stack[])
+void deletee(int *top,b *stack)
 {
 	if(*(top)==-1)
 	{
@@ -75,17 +75,19 @@ int main()
 	printf("choice three to display  books \n");
 	printf("any key to exit \n");
 	int ch;
-	printf("enter the choice");
-	scanf("%d",&ch);
+	
+	
 	for(;;)
 	{
+	printf("enter the choice");
+	scanf("%d",&ch);
 	switch(ch)
 	{
 		case 1:
 		insert(&top,stack);
 		break;
 		case 2:
-		remove(&top,stack);
+		deletee(&top,stack);
 		break;
 		case 3:
 		display(top,stack);
