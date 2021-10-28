@@ -1,0 +1,43 @@
+
+int main()
+{
+    int n;
+    printf("enter number of elements of array");
+    scanf("%d",&n);
+    int a[n];
+    printf("enter elements of the array");
+    for(int i=0;i<n;i++)
+    {
+        scanf("%d",&a[i]);
+    }
+    int visited[n];
+   
+    int count=1;
+    for(int i=0;i<n;i++,count=1)
+    {
+        
+        for(int j=i+1;j<n;j++)
+        {
+            if(a[i]==a[j])
+            {
+                visited[j]=-1;
+                count++;
+            }
+        }   
+        if(visited[i]!=-1)
+        {
+            visited[i]=count;
+        }
+        
+    }
+    for(int i=0;i<n;i++)
+    {
+        if(visited[i]!=-1)
+        {
+            printf("%d: %d \n",a[i],visited[i]);
+        }
+        
+    }
+
+    return 0;
+}
